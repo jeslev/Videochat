@@ -170,25 +170,17 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
     call.on('stream', showRemoteStream);
-
-    currentCall = call;
-    call.answer(localStream);
     call.on('close', function() {remoteVideo.src = null} );
-//    $.confirm({
-//        text: "Responder llamada?",
-//        confirm: function(button) {
-//          //user clicked "ok"
-//          logMessage('incoming call answered');
-//
-//          call.on('stream', showRemoteStream);
-//
-//          call.answer(localStream);
-//        },
-//        cancel: function(button) {
-//          //user clicked "cancel"
-//          call.close();
-//        }
-//      });
+
+    var confirmar = confirm("Responder llamada?");
+
+    if(confirmar==true){
+        logMessage('incoming call answered');
+        call.answer(localStream);
+        currentCall = call;
+    }else{
+        call.close();
+    }
 
   };
 
