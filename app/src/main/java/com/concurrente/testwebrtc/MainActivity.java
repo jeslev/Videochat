@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
         //xWalkWebView.load("http://192.168.0.12:9000", null);
 
         // this loads a file from the assets/ directory
-        xWalkWebView.load("file:///android_asset/index.html", null);
-
+        //xWalkWebView.load("file:///android_asset/video.html", null);
+        xWalkWebView.load("file:///android_asset/audio.html", null);
         // turn on debugging
         XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
 

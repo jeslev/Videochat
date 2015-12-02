@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>WebRTC client</title>
+    <title>VideoChat - Final Concurrente</title>
 
     <style>
         #credentials, #dialler, #messages {
@@ -22,27 +22,29 @@
 
 <div id="credentials">
     <p>
-        Connect as: <input type="text" id="caller-id" size="15">
-        <button id="connect">Connect</button>
+        Conectarse como: <input type="text" id="caller-id" size="15">
+        <button id="connect">Conectar</button>
     </p>
 </div>
 
 <div id="dialler" data-active="false">
     <p>
-        Make call to:
+        Llamar a:
         <input type="select" id="recipient-id">
         </input>
-        <button id="dial">Call</button>
+        <button id="dial">Llamar</button>
+        <button id="undial">Colgar</button>
+
     </p>
 
     <hr>
 
-    <p><strong>REMOTE:</strong></p>
+    <p><strong>Llamando a:</strong></p>
     <video id="remote-video" autoplay></video>
 
     <hr>
 
-    <p><strong>LOCAL:</strong></p>
+    <p><strong>Yo:</strong></p>
     <video id="local-video" autoplay muted></video>
 </div>
 
@@ -52,6 +54,6 @@
 </div>
 
 <script src="peer.js"></script>
-<script src="main.js"></script>
+<script src="video.js"></script>
 </body>
 </html>

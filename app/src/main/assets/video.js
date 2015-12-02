@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   // PeerJS server location
-  var SERVER_IP = '172.16.9.21';
+  var SERVER_IP = '192.168.0.12';
   var SERVER_PORT = 9000;
 
   // DOM elements manipulated as user interacts with the app
@@ -168,11 +168,22 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    logMessage('incoming call answered');
+    $.confirm({
+        text: "Responder llamada?",
+        confirm: function(button) {
+          //user clicked "ok"
+          logMessage('incoming call answered');
 
-    call.on('stream', showRemoteStream);
+          call.on('stream', showRemoteStream);
 
-    call.answer(localStream);
+          call.answer(localStream);
+        },
+        cancel: function(button) {
+          //user clicked "cancel"
+          call.close();
+        }
+      });
+
   };
 
   // wire up button events

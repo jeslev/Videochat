@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>VideoChat - Final Concurrente</title>
+
+    <style>
+        #credentials, #dialler, #messages {
+        clear: both;
+        }
+        #remote-video {
+        max-width: 300px;
+        }
+        #local-video {
+        max-width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="credentials">
+    <p>
+        Conectarse como: <input type="text" id="caller-id" size="15">
+        <button id="connect">Conectar</button>
+    </p>
+</div>
+
+<div id="dialler" data-active="false">
+    <p>
+        Llamar a:
+        <input type="select" id="recipient-id">
+        </input>
+        <button id="dial">Llamar</button>
+        <button id="undial">Colgar</button>
+    </p>
+
+    <hr>
+
+    <p><strong>Llamando a:</strong></p>
+    <audio controls id="remote-video" autoplay></audio>
+
+    <hr>
+
+    <p><strong>Yo:</strong></p>
+    <audio controls id="local-video" autoplay muted></audio>
+</div>
+
+<hr>
+
+<div id="messages">
+</div>
+
+<script src="peer.js"></script>
+<script src="audio.js"></script>
+</body>
+</html>
