@@ -1,55 +1,68 @@
 package com.concurrente.testwebrtc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-
-import org.xwalk.core.XWalkPreferences;
-import org.xwalk.core.XWalkView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private XWalkView xWalkWebView;
+    private Button signUpButton;
+    private Button loginButton;
+    private EditText usernameField;
+    private EditText passwordField;
+    private String username;
+    private String password;
+    private Intent intent;
+    private Intent serviceIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        intent = new Intent(getApplicationContext(), ListUsersActivity.class);
+
+
         setContentView(R.layout.activity_main);
 
-        xWalkWebView=(XWalkView)findViewById(R.id.xwalkWebView);
-        //xWalkWebView.load("http://192.168.0.12:9000", null);
+        loginButton = (Button) findViewById(R.id.loginButton);
+        signUpButton = (Button) findViewById(R.id.signupButton);
+        usernameField = (EditText) findViewById(R.id.loginUsername);
+        passwordField = (EditText) findViewById(R.id.loginPassword);
 
-        // this loads a file from the assets/ directory
-        //xWalkWebView.load("file:///android_asset/video.html", null);
-        xWalkWebView.load("file:///android_asset/audio.html", null);
-        // turn on debugging
-        XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                username = usernameField.getText().toString();
+                password = passwordField.getText().toString();
+                if(username.equals(password)){
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),
+                            "Usuario y/o Contraseña incorrectos!",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                username = usernameField.getText().toString();
+                password = passwordField.getText().toString();
+
+            }
+        });
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        if (xWalkWebView != null) {
-            xWalkWebView.pauseTimers();
-            xWalkWebView.onHide();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (xWalkWebView != null) {
-            xWalkWebView.resumeTimers();
-            xWalkWebView.onShow();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-        if (xWalkWebView != null) {
-            xWalkWebView.onDestroy();
-        }
     }
 
 }
