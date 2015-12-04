@@ -102,7 +102,7 @@ public class ListUsersActivity extends AppCompatActivity {
     //open a conversation with one person
     public void openConversation(ArrayList<String> names, int pos) {
         if (true) { /*Validar que siga conectado y otras cosas*/
-            Intent intent = new Intent(getApplicationContext(), ComunicationActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ChooseActivity.class);
             startActivity(intent);
         } else {
             Toast.makeText(getApplicationContext(),

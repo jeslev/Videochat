@@ -1,5 +1,6 @@
 package com.concurrente.testwebrtc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -9,18 +10,25 @@ import org.xwalk.core.XWalkView;
 public class ComunicationActivity extends AppCompatActivity {
 
     private XWalkView xWalkWebView;
+    private String tipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comunication);
 
+        Intent intent = getIntent();
+        tipo = intent.getStringExtra("tipo");
+
         xWalkWebView=(XWalkView)findViewById(R.id.xwalkWebView);
         //xWalkWebView.load("http://192.168.0.12:9000", null);
 
         // this loads a file from the assets/ directory
-        //xWalkWebView.load("file:///android_asset/video.html", null);
-        xWalkWebView.load("file:///android_asset/audio.html", null);
+        if(tipo.equals("video")) {
+            xWalkWebView.load("file:///android_asset/video.html", null);
+        }else{
+            xWalkWebView.load("file:///android_asset/audio.html", null);
+        }
         // turn on debugging
         XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
 

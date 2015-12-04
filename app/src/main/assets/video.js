@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   // PeerJS server location
-  var SERVER_IP = '192.168.0.12';
+  var SERVER_IP = '172.16.9.22';
   var SERVER_PORT = 9000;
 
   // DOM elements manipulated as user interacts with the app
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         function (err) {
-          logError('failed to access local camera');
+          logError('No se pudo acceder a la camara');
           logError(err.message);
         }
       );
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
     callerId = callerIdEntry.value;
 
     if (!callerId) {
-      logError('please set caller ID first');
+      logError('Ingrese un contacto valido');
       return;
     }
 
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // open === true; instead, listen to the wrapped WebSocket
       // and show an error if its readyState becomes CLOSED
       peer.socket._socket.onclose = function () {
-        logError('no connection to server');
+        logError('No se conecto al servidor');
         peer = null;
       };
 
@@ -119,38 +119,38 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     catch (e) {
       peer = null;
-      logError('error while connecting to server');
+      logError('Error al conectar al servidor');
     }
   };
 
   // make an outgoing call
   var dial = function () {
     if (!peer) {
-      logError('please connect first');
+      logError('Conectese antes');
       return;
     }
 
     if (!localStream) {
-      logError('could not start call as there is no local camera');
+      logError('No se inicio llamada porque no se encontro camara');
       return
     }
 
     var recipientId = recipientIdEntry.value;
 
     if (!recipientId) {
-      logError('could not start call as no recipient ID is set');
+      logError('No especifico destinatario');
       return;
     }
 
     getLocalStream(function (stream) {
-      logMessage('outgoing call initiated');
+      logMessage('Se inicio llamada');
 
       var call = peer.call(recipientId, stream);
 
       call.on('stream', showRemoteStream);
 
       call.on('error', function (e) {
-        logError('error with call');
+        logError('Error al llamar');
         logError(e.message);
       });
     });
@@ -159,31 +159,31 @@ document.addEventListener('DOMContentLoaded', function () {
   // answer an incoming call
   var answer = function (call) {
     if (!peer) {
-      logError('cannot answer a call without a connection');
+      logError('No se puede contestar sino esta conectado');
       return;
     }
 
     if (!localStream) {
-      logError('could not answer call as there is no localStream ready');
+      logError('No se inicio el stream');
       return;
     }
+    //user clicked "ok"
+    logMessage('Llamada aceptada');
 
-    $.confirm({
+    call.on('stream', showRemoteStream);
+
+    call.answer(localStream);
+    /*$.confirm({
         text: "Responder llamada?",
         confirm: function(button) {
-          //user clicked "ok"
-          logMessage('incoming call answered');
 
-          call.on('stream', showRemoteStream);
-
-          call.answer(localStream);
         },
         cancel: function(button) {
           //user clicked "cancel"
           call.close();
         }
       });
-
+    */
   };
 
   // wire up button events
