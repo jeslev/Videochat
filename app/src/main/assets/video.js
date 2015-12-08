@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   // PeerJS server location
-  var SERVER_IP = '192.168.0.12';
+  var SERVER_IP = '192.168.1.110';
   var SERVER_PORT = 8080;
 
   // DOM elements manipulated as user interacts with the app
@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   var undial = function(){
+    document.getElementById('undial').style.display = 'none';
     currentCall.close();
   }
 
@@ -155,6 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       busy = true;
 
+      document.getElementById('undial').style.display = '';
       call.on('stream', showRemoteStream);
 
       call.on('error', function (e) {
@@ -229,7 +231,7 @@ function connect(){
 function myFunc(){
 
   // PeerJS server location
-  var SERVER_IP = '192.168.0.12';
+  var SERVER_IP = '192.168.1.110';
   var SERVER_PORT = 8080;
 
     var label1 = document.getElementById('prueba');
@@ -256,9 +258,15 @@ function myFunc(){
 
     var arrayLength = response.length;
     for (var i = 0; i < arrayLength; i++) {
-        var row = tableContacts.insertRow();
-        var cell1 = row.insertCell();
-        cell1.innerHTML = response[i];
+        if(response[i]!=document.getElementById('caller-id').value){
+            var row = tableContacts.insertRow();
+            var cell1 = row.insertCell();
+            cell1.innerHTML = response[i];
+            cell1.onclick = function() {
+                document.getElementById('recipient-id').value = cell1.innerText;
+                document.getElementById('dial').click();
+            };
+        }
     }
 
 

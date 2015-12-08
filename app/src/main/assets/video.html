@@ -33,10 +33,10 @@
 <div id="dialler" data-active="false">
     <!--
       <p>
-          Llamar a:
-          <input type="select" id="recipient-id">
+          Llamar a:  -->
+          <input type="hidden" id="recipient-id">
           </input>
-      </p>
+  <!--    </p>
   -->
       <!--<hr>-->
 <!--    <hr>-->
@@ -49,37 +49,42 @@
 <div id="messages">
 </div>
 
-<table border="1px" widht="290px">
-    <tbody>
-        <tr>
-            <td widht="210px" style="padding:7px;">
-                <div id="remoteUser" style="display: none; ">
-                    <!--<p><strong>Llamando a:</strong></p>-->
-                    <video id="remote-video" autoplay></video>
-                </div>
-                <div id="contactList" class="tableContactsCss">
-                    <table id="tableContacts">
-                    </table>
-                </div>
-            </td>
-            <td widht="80px" >
-                <div id="localUser" >
-                    <!--<p><strong>Yo:</strong></p>-->
-                    <video id="local-video" autoplay muted></video>
-                    <br>
-                    <label id="user-name" size="30">%USER_NAME%</label>
-                    <input type="hidden" id="caller-id" value="%USER_NAME%">
-                </div>
-                <div id="callButtons" >
-                    <!--<p><strong>Yo:</strong></p>-->
-                    <button id="dial" style="display: none;">Llamar</button>
-                    <button id="undial"  style="display: none;">Colgar</button>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
+<div width="100%">
+    <table border="1px" width="100%">
+        <tbody>
+            <tr>
+                <td widht="70%" style="padding:7px;">
+                    <div id="remoteUser" style="display: none; ">
+                        <!--<p><strong>Llamando a:</strong></p>-->
+                        <video id="remote-video" autoplay></video>
+                    </div>
+                    <div id="contactList" class="tableContactsCss">
+                        <table id="tableContacts">
+                        </table>
+                    </div>
+                </td>
+                <td width="30%" >
+                    <div id="localUser" >
+                        <!--<p><strong>Yo:</strong></p>-->
+                        <video id="local-video" autoplay muted></video>
+                        <br>
+                        <div align="center">
+                            <label id="user-name" size="40">%USER_NAME%</label>
+                        </div>
+                        <div align="center">
+                            <input type="hidden" id="caller-id" value="%USER_NAME%">
+                        </div>
+                    </div>
+                    <div id="callButtons" align="center">
+                        <!--<p><strong>Yo:</strong></p>-->
+                        <button id="dial" style="display: none;">Llamar</button>
+                        <button id="undial" style="display: none;">Colgar</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 
 
