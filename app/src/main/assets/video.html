@@ -3,6 +3,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
+
+    <link rel="stylesheet" href="styles.css" type="text/css" >
     <title>VideoChat - Final Concurrente</title>
 
     <style>
@@ -18,42 +20,72 @@
     </style>
 </head>
 
-<body>
+<body onload="connect();myFunc();">
 
 <div id="credentials">
+    <!--
     <p>
-        Conectarse como: <input type="text" id="caller-id" size="15">
-        <button id="connect">Conectar</button>
-    </p>
+        Conectarse como: <input type="text" id="caller-id" size="15"> -->
+        <button id="connect" style="display:none;">Conectar</button>
+    <!-- </p>        -->
 </div>
 
 <div id="dialler" data-active="false">
-    <p>
-        Llamar a:
-        <input type="select" id="recipient-id">
-        </input>
-        <button id="dial">Llamar</button>
-        <button id="undial">Colgar</button>
+    <!--
+      <p>
+          Llamar a:
+          <input type="select" id="recipient-id">
+          </input>
+      </p>
+  -->
+      <!--<hr>-->
+<!--    <hr>-->
 
-    </p>
 
-    <hr>
-
-    <p><strong>Llamando a:</strong></p>
-    <video id="remote-video" autoplay></video>
-
-    <hr>
-
-    <p><strong>Yo:</strong></p>
-    <video id="local-video" autoplay muted></video>
 </div>
 
-<hr>
+<!--<hr>-->
 
 <div id="messages">
 </div>
 
+<table border="1px" widht="290px">
+    <tbody>
+        <tr>
+            <td widht="210px" style="padding:7px;">
+                <div id="remoteUser" style="display: none; ">
+                    <!--<p><strong>Llamando a:</strong></p>-->
+                    <video id="remote-video" autoplay></video>
+                </div>
+                <div id="contactList" class="tableContactsCss">
+                    <table id="tableContacts">
+                    </table>
+                </div>
+            </td>
+            <td widht="80px" >
+                <div id="localUser" >
+                    <!--<p><strong>Yo:</strong></p>-->
+                    <video id="local-video" autoplay muted></video>
+                    <br>
+                    <label id="user-name" size="30">%USER_NAME%</label>
+                    <input type="hidden" id="caller-id" value="%USER_NAME%">
+                </div>
+                <div id="callButtons" >
+                    <!--<p><strong>Yo:</strong></p>-->
+                    <button id="dial" style="display: none;">Llamar</button>
+                    <button id="undial"  style="display: none;">Colgar</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="peer.js"></script>
 <script src="video.js"></script>
+
 </body>
 </html>

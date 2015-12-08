@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   // PeerJS server location
-  var SERVER_IP = '172.16.9.22';
-  var SERVER_PORT = 9000;
+  var SERVER_IP = '192.168.43.254';
+  var SERVER_PORT = 8080;
 
   // DOM elements manipulated as user interacts with the app
   var messageBox = document.querySelector('#messages');

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   // PeerJS server location
-  var SERVER_IP = '172.16.9.22';
-  var SERVER_PORT = 9000;
+  var SERVER_IP = '192.168.43.254';
+  var SERVER_PORT = 8080;
 
   // DOM elements manipulated as user interacts with the app
   var messageBox = document.querySelector('#messages');
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var connectBtn = document.querySelector('#connect');
   var recipientIdEntry = document.querySelector('#recipient-id');
   var dialBtn = document.querySelector('#dial');
+  var finishBtn = document.querySelector('#undial');
   var remoteVideo = document.querySelector('#remote-video');
   var localVideo = document.querySelector('#local-video');
 
@@ -156,6 +157,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   };
 
+  var undial = function() {
+      currentCall.close();
+      remoteVideo.src = null;
+  };
+
   // answer an incoming call
   var answer = function (call) {
     if (!peer) {
@@ -189,4 +195,44 @@ document.addEventListener('DOMContentLoaded', function () {
   // wire up button events
   connectBtn.addEventListener('click', connect);
   dialBtn.addEventListener('click', dial);
+  finishBtn.addEventListener('click', undial);
 });
+
+function connect(){
+    document.getElementById('connect').click();
+}
+
+function myFunc(){
+    var label1 = document.getElementById('prueba');
+    var response = '';
+    $.ajax({ type: "GET",
+             url: "http://192.168.43.254:9000/peerjs/peers",
+             async: false,
+             success : function(text)
+             {
+                 response = text;
+             }
+    });
+//    label1.value = Object.prototype.toString.call(response);
+    tableContacts = document.getElementById('tableContacts');
+    response.sort();
+
+    tableContacts.innerHTML = "";
+    var newRow = document.createElement("tr");
+    tableContacts.appendChild(newRow);
+    var row = tableContacts.insertRow(0);
+    var header = document.createElement("th");
+    header.innerHTML = "LISTA DE USUARIOS CONECTADOS";
+    newRow.appendChild(header);
+
+    var arrayLength = response.length;
+    for (var i = 0; i < arrayLength; i++) {
+        var row = tableContacts.insertRow();
+        var cell1 = row.insertCell();
+        cell1.innerHTML = response[i];
+    }
+
+
+
+}
+setInterval(myFunc, 5000);

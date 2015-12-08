@@ -1,0 +1,49 @@
+.tableContactsCss {
+	margin:0px;padding:0px;
+	width:100%;
+	border:1px solid #ffffff;
+
+	border-bottom-left-radius:5px;
+	border-bottom-right-radius:5px;
+	border-top-right-radius:5px;
+	border-top-left-radius:5px;
+}.tableContactsCss table{
+    border-collapse: collapse;
+        border-spacing: 0;
+	width:100%;
+	height:100%;
+	margin:0px;padding:0px;
+}
+.tableContactsCss tr:hover td{
+	background-color:#aaffff;
+
+
+}
+.tableContactsCss td{
+	vertical-align:middle;
+
+	background-color:#e0f8f7;
+
+	border:1px solid #ffffff;
+	border-width:0px 1px 1px 0px;
+	text-align:left;
+	padding:12px;
+	font-size:10px;
+	font-family:Arial;
+	font-weight:normal;
+	color:#000000;
+}
+.tableContactsCss th{
+	vertical-align:middle;
+
+	background-color:#58faac;
+
+	border:1px solid #ffffff;
+	border-width:0px 1px 1px 0px;
+	text-align:left;
+	padding:12px;
+	font-size:10px;
+	font-family:Arial;
+	font-weight:normal;
+	color:#000000;
+}

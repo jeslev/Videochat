@@ -11,11 +11,15 @@ public class ChooseActivity extends Activity {
     Button audioButton;
     Button videoButton;
     Intent intent;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose);
+
+        Intent intentAct = getIntent();
+        username = intentAct.getStringExtra("username");
 
         intent = new Intent(getApplicationContext(), ComunicationActivity.class);
 
@@ -26,6 +30,7 @@ public class ChooseActivity extends Activity {
             @Override
             public void onClick(View view) {
                 intent.putExtra("tipo", "audio");
+                intent.putExtra("username", username);
                 startActivity(intent);
             }
         });
@@ -34,6 +39,7 @@ public class ChooseActivity extends Activity {
             @Override
             public void onClick(View view) {
                 intent.putExtra("tipo", "video");
+                intent.putExtra("username", username);
                 startActivity(intent);
             }
         });

@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        intent = new Intent(getApplicationContext(), ListUsersActivity.class);
+        //intent = new Intent(getApplicationContext(), ListUsersActivity.class);
+        intent = new Intent(getApplicationContext(), ChooseActivity.class);
 
 
         setContentView(R.layout.activity_main);
@@ -38,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 username = usernameField.getText().toString();
                 password = passwordField.getText().toString();
-                if(username.equals(password)){
+                if (username.equals(password)){
+                    intent.putExtra("username", username);
                     startActivity(intent);
                 }
                 else{
