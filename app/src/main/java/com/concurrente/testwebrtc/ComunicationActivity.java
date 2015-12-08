@@ -48,7 +48,13 @@ public class ComunicationActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }else{
-
+            try {
+                String content = IOUtils.toString(getAssets().open("conferencia.html")).replaceAll("%USER_NAME%", username);
+                //xWalkWebView.load("file:///android_asset/audio.html", null);
+                xWalkWebView.load("file:///android_asset/conferencia.html", content);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
         // turn on debugging
