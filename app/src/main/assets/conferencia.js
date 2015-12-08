@@ -171,6 +171,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         call.on('close', function(){
           call.close();
+          document.getElementById('undial').style.display = 'none';
+          document.getElementById('remoteUser').style.display = 'none';
           busy=false;
         });
 
@@ -242,10 +244,12 @@ function myFunc(){
     tableContacts.appendChild(newRow);
     var row = tableContacts.insertRow(0);
     var header = document.createElement("th");
-    header.innerHTML = "LISTA DE USUARIOS CONECTADOS";
+    var arrayLength = response.length;
+    if(arrayLength==1)    header.innerHTML = "NO HAY USUARIOS CONECTADOS";
+    else    header.innerHTML = "LISTA DE USUARIOS CONECTADOS";
     newRow.appendChild(header);
 
-    var arrayLength = response.length;
+
     for (var i = 0; i < arrayLength; i++) {
         var row = tableContacts.insertRow();
         var cell1 = row.insertCell();

@@ -1,6 +1,4 @@
-
 document.addEventListener('DOMContentLoaded', function () {
-
   // PeerJS server location
   var SERVER_IP = '192.168.1.110';
   var SERVER_PORT = 8080;
@@ -127,6 +125,8 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   var undial = function(){
+    document.getElementById('undial').style.display = 'none';
+    document.getElementById('remoteUser').style.display = 'none';
     currentCall.close();
   }
 
@@ -157,6 +157,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
       busy = true;
 
+      if(busy==true){
+        document.getElementById('undial').style.display = '';
+        document.getElementById('remoteUser').style.display = '';
+      }
+      else{
+        document.getElementById('undial').style.display = 'none';
+        document.getElementById('remoteUser').style.display = 'none';
+      }
       call.on('stream', showRemoteStream);
 
       call.on('error', function (e) {
@@ -207,13 +215,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 currentCall.close();
                 currentCall= null;
                 logMessage('Me cortaron');
+                document.getElementById('undial').style.display = 'none';
+                document.getElementById('remoteUser').style.display = 'none';
                 busy = false;
             });
-
 
         }else{
             call.close();
             busy=false;
+        }
+        
+        if(busy==true){
+            document.getElementById('undial').style.display = '';
+            document.getElementById('remoteUser').style.display = '';
+        }
+        else{
+            document.getElementById('undial').style.display = 'none';
+            document.getElementById('remoteUser').style.display = 'none';
         }
     }
   };
@@ -229,10 +247,10 @@ function connect(){
 }
 
 function myFunc(){
+
   // PeerJS server location
   var SERVER_IP = '192.168.1.110';
   var SERVER_PORT = 8080;
-
 
     var label1 = document.getElementById('prueba');
     var response = '';
@@ -253,17 +271,25 @@ function myFunc(){
     tableContacts.appendChild(newRow);
     var row = tableContacts.insertRow(0);
     var header = document.createElement("th");
-    header.innerHTML = "LISTA DE USUARIOS CONECTADOS";
+    var arrayLength = response.length;
+    if(arrayLength==1)    header.innerHTML = "NO HAY USUARIOS CONECTADOS";
+    else    header.innerHTML = "LISTA DE USUARIOS CONECTADOS";
     newRow.appendChild(header);
 
-    var arrayLength = response.length;
+
     for (var i = 0; i < arrayLength; i++) {
-        var row = tableContacts.insertRow();
-        var cell1 = row.insertCell();
-        cell1.innerHTML = response[i];
+        if(response[i]!=document.getElementById('caller-id').value){
+            var row = tableContacts.insertRow();
+            var cell1 = row.insertCell();
+            cell1.innerHTML = response[i];
+            cell1.onclick = function() {
+                document.getElementById('recipient-id').value = cell1.innerText;
+                document.getElementById('dial').click();
+            };
+        }
     }
 
 
 
 }
-setInterval(myFunc, 4000);
+setInterval(myFunc, 5000);

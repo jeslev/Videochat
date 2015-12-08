@@ -126,6 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var undial = function(){
     document.getElementById('undial').style.display = 'none';
+    document.getElementById('remoteUser').style.display = 'none';
     currentCall.close();
   }
 
@@ -156,7 +157,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
       busy = true;
 
-      document.getElementById('undial').style.display = '';
+      if(busy==true){
+        document.getElementById('undial').style.display = '';
+        document.getElementById('remoteUser').style.display = '';
+      }
+      else{
+        document.getElementById('undial').style.display = 'none';
+        document.getElementById('remoteUser').style.display = 'none';
+      }
       call.on('stream', showRemoteStream);
 
       call.on('error', function (e) {
@@ -207,13 +215,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 currentCall.close();
                 currentCall= null;
                 logMessage('Me cortaron');
+                document.getElementById('undial').style.display = 'none';
+                document.getElementById('remoteUser').style.display = 'none';
                 busy = false;
             });
-
 
         }else{
             call.close();
             busy=false;
+        }
+
+        if(busy==true){
+            document.getElementById('undial').style.display = '';
+            document.getElementById('remoteUser').style.display = '';
+        }
+        else{
+            document.getElementById('undial').style.display = 'none';
+            document.getElementById('remoteUser').style.display = 'none';
         }
     }
   };
@@ -253,10 +271,14 @@ function myFunc(){
     tableContacts.appendChild(newRow);
     var row = tableContacts.insertRow(0);
     var header = document.createElement("th");
-    header.innerHTML = "LISTA DE USUARIOS CONECTADOS";
-    newRow.appendChild(header);
 
     var arrayLength = response.length;
+    if(arrayLength==1)    header.innerHTML = "NO HAY USUARIOS CONECTADOS";
+    else    header.innerHTML = "LISTA DE USUARIOS CONECTADOS";
+
+    newRow.appendChild(header);
+
+
     for (var i = 0; i < arrayLength; i++) {
         if(response[i]!=document.getElementById('caller-id').value){
             var row = tableContacts.insertRow();
