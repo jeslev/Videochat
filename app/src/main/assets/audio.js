@@ -1,6 +1,8 @@
+
 document.addEventListener('DOMContentLoaded', function () {
+
   // PeerJS server location
-  var SERVER_IP = '192.168.43.254';
+  var SERVER_IP = '192.168.0.12';
   var SERVER_PORT = 8080;
 
   // DOM elements manipulated as user interacts with the app
@@ -15,14 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // the ID set for this client
   var callerId = null;
-
+  var busy = false;
   // PeerJS object, instantiated when this client connects with its
   // caller ID
   var peer = null;
 
   // the local video stream captured with getUserMedia()
   var localStream = null;
-
   var currentCall = null;
   // DOM utilities
   var makePara = function (text) {
@@ -76,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         function (err) {
-          logError('No se pudo cargar microfono');
+          logError('No se pudo acceder a la camara');
           logError(err.message);
         }
       );
@@ -93,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
     callerId = callerIdEntry.value;
 
     if (!callerId) {
-      logError('Tiene que conectarse primero');
+      logError('Ingrese un contacto valido');
       return;
     }
 
@@ -125,22 +126,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   };
 
+  var undial = function(){
+    currentCall.close();
+  }
+
   // make an outgoing call
   var dial = function () {
     if (!peer) {
-      logError('Conectese primero');
+      logError('Conectese antes');
       return;
     }
 
     if (!localStream) {
-      logError('No se pudo iniciar llamada porque no se encontro microfono');
+      logError('No se inicio llamada porque no se encontro camara');
       return
     }
 
     var recipientId = recipientIdEntry.value;
 
     if (!recipientId) {
-      logError('El destinatario no esta conectado');
+      logError('No especifico destinatario');
       return;
     }
 
@@ -149,49 +154,116 @@ document.addEventListener('DOMContentLoaded', function () {
 
       var call = peer.call(recipientId, stream);
       currentCall = call;
+
+      busy = true;
+
       call.on('stream', showRemoteStream);
 
       call.on('error', function (e) {
-        logError('Error con la llamada');
+        logError('Error al llamar');
         logError(e.message);
+        busy = false;
       });
+
+      call.on('close', function(){
+              call.close();
+              currentCall.close();
+              currentCall=null;
+              busy=false;
+            });
+
     });
   };
 
   // answer an incoming call
   var answer = function (call) {
     if (!peer) {
-      logError('No se puede contestar llamada sin conexion');
+      logError('No se puede contestar sino esta conectado');
       return;
     }
+
 
     if (!localStream) {
-      logError('No se instancio el stream');
+      logError('No se inicio el stream');
       return;
     }
-    call.on('stream', showRemoteStream);
-    call.on('close', function() {remoteVideo.src = null} );
-
-    var confirmar = confirm("Responder llamada?");
-
-    if(confirmar==true){
-        logMessage('Llamada aceptada');
-        call.answer(localStream);
-        currentCall = call;
-    }else{
+    if(busy==true){
         call.close();
     }
+    else{
+        var confirmar = confirm("Responder llamada?");
 
-  };
+        if(confirmar==true){
+            logMessage('Llamada aceptada');
+            call.answer(localStream);
+            currentCall = call;
+            busy = true;
+            //user clicked "ok"
+            logMessage('Llamada aceptada');
 
-  var undial = function() {
-    currentCall.close();
-    remoteVideo.src = null;
+            call.on('stream', showRemoteStream);
+            call.on('close', function(){
+                call.close();
+                currentCall.close();
+                currentCall= null;
+                logMessage('Me cortaron');
+                busy = false;
+            });
+
+
+        }else{
+            call.close();
+            busy=false;
+        }
+    }
   };
 
   // wire up button events
   connectBtn.addEventListener('click', connect);
   dialBtn.addEventListener('click', dial);
   finishBtn.addEventListener('click', undial);
-
 });
+
+function connect(){
+    document.getElementById('connect').click();
+}
+
+function myFunc(){
+  // PeerJS server location
+  var SERVER_IP = '192.168.0.12';
+  var SERVER_PORT = 8080;
+
+
+    var label1 = document.getElementById('prueba');
+    var response = '';
+    $.ajax({ type: "GET",
+             url: "http://"+SERVER_IP+":"+SERVER_PORT+"/peerjs/peers",
+             async: false,
+             success : function(text)
+             {
+                 response = text;
+             }
+    });
+//    label1.value = Object.prototype.toString.call(response);
+    tableContacts = document.getElementById('tableContacts');
+    response.sort();
+
+    tableContacts.innerHTML = "";
+    var newRow = document.createElement("tr");
+    tableContacts.appendChild(newRow);
+    var row = tableContacts.insertRow(0);
+    var header = document.createElement("th");
+    header.innerHTML = "LISTA DE USUARIOS CONECTADOS";
+    newRow.appendChild(header);
+
+    var arrayLength = response.length;
+    for (var i = 0; i < arrayLength; i++) {
+        var row = tableContacts.insertRow();
+        var cell1 = row.insertCell();
+        cell1.innerHTML = response[i];
+    }
+
+
+
+}
+setInterval(myFunc, 5000);

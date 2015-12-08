@@ -10,6 +10,7 @@ public class ChooseActivity extends Activity {
 
     Button audioButton;
     Button videoButton;
+    Button conferenciaButton;
     Intent intent;
     private String username;
 
@@ -25,6 +26,7 @@ public class ChooseActivity extends Activity {
 
         audioButton = (Button) findViewById(R.id.audioButton);
         videoButton = (Button) findViewById(R.id.videoButton);
+        conferenciaButton = (Button) findViewById(R.id.conferenciaButton);
 
         audioButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +42,15 @@ public class ChooseActivity extends Activity {
             public void onClick(View view) {
                 intent.putExtra("tipo", "video");
                 intent.putExtra("username", username);
+                startActivity(intent);
+            }
+        });
+
+        conferenciaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("tipo","conferencia");
+                intent.putExtra("username",username);
                 startActivity(intent);
             }
         });

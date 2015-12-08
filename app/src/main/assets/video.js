@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   // PeerJS server location
-  var SERVER_IP = '192.168.43.254';
+  var SERVER_IP = '192.168.0.12';
   var SERVER_PORT = 8080;
 
   // DOM elements manipulated as user interacts with the app
@@ -15,14 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // the ID set for this client
   var callerId = null;
-
+  var busy = false;
   // PeerJS object, instantiated when this client connects with its
   // caller ID
   var peer = null;
 
   // the local video stream captured with getUserMedia()
   var localStream = null;
-
+  var currentCall = null;
   // DOM utilities
   var makePara = function (text) {
     var p = document.createElement('p');
@@ -124,6 +124,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   };
 
+  var undial = function(){
+    currentCall.close();
+  }
+
   // make an outgoing call
   var dial = function () {
     if (!peer) {
@@ -147,19 +151,26 @@ document.addEventListener('DOMContentLoaded', function () {
       logMessage('Se inicio llamada');
 
       var call = peer.call(recipientId, stream);
+      currentCall = call;
+
+      busy = true;
 
       call.on('stream', showRemoteStream);
 
       call.on('error', function (e) {
         logError('Error al llamar');
         logError(e.message);
+        busy = false;
       });
-    });
-  };
 
-  var undial = function() {
-      currentCall.close();
-      remoteVideo.src = null;
+      call.on('close', function(){
+              call.close();
+              currentCall.close();
+              currentCall=null;
+              busy=false;
+            });
+
+    });
   };
 
   // answer an incoming call
@@ -169,27 +180,40 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
+
     if (!localStream) {
       logError('No se inicio el stream');
       return;
     }
-    //user clicked "ok"
-    logMessage('Llamada aceptada');
+    if(busy==true){
+        call.close();
+    }
+    else{
+        var confirmar = confirm("Responder llamada?");
 
-    call.on('stream', showRemoteStream);
+        if(confirmar==true){
+            logMessage('Llamada aceptada');
+            call.answer(localStream);
+            currentCall = call;
+            busy = true;
+            //user clicked "ok"
+            logMessage('Llamada aceptada');
 
-    call.answer(localStream);
-    /*$.confirm({
-        text: "Responder llamada?",
-        confirm: function(button) {
+            call.on('stream', showRemoteStream);
+            call.on('close', function(){
+                call.close();
+                currentCall.close();
+                currentCall= null;
+                logMessage('Me cortaron');
+                busy = false;
+            });
 
-        },
-        cancel: function(button) {
-          //user clicked "cancel"
-          call.close();
+
+        }else{
+            call.close();
+            busy=false;
         }
-      });
-    */
+    }
   };
 
   // wire up button events
@@ -203,10 +227,15 @@ function connect(){
 }
 
 function myFunc(){
+
+  // PeerJS server location
+  var SERVER_IP = '192.168.0.12';
+  var SERVER_PORT = 8080;
+
     var label1 = document.getElementById('prueba');
     var response = '';
     $.ajax({ type: "GET",
-             url: "http://192.168.43.254:9000/peerjs/peers",
+             url: "http://"+SERVER_IP+":"+SERVER_PORT+"/peerjs/peers",
              async: false,
              success : function(text)
              {

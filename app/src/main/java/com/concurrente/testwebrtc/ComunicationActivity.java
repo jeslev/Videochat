@@ -39,7 +39,7 @@ public class ComunicationActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else{
+        }else if(tipo.equals("audio")){
             try {
                 String content = IOUtils.toString(getAssets().open("audio.html")).replaceAll("%USER_NAME%", username);
                 //xWalkWebView.load("file:///android_asset/audio.html", null);
@@ -47,6 +47,9 @@ public class ComunicationActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else{
+
+
         }
         // turn on debugging
         XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
