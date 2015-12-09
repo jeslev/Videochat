@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   // PeerJS server location
-  var SERVER_IP = '192.168.1.110';
+  var SERVER_IP = '52.33.240.178';
   var SERVER_PORT = 8080;
 
   // DOM elements manipulated as user interacts with the app
@@ -178,6 +178,8 @@ document.addEventListener('DOMContentLoaded', function () {
               currentCall.close();
               currentCall=null;
               busy=false;
+              document.getElementById('undial').style.display = 'none';
+              document.getElementById('remoteUser').style.display = 'none';
             });
 
     });
@@ -249,7 +251,7 @@ function connect(){
 function myFunc(){
 
   // PeerJS server location
-  var SERVER_IP = '192.168.1.110';
+  var SERVER_IP = '52.33.240.178';
   var SERVER_PORT = 8080;
 
     var label1 = document.getElementById('prueba');
