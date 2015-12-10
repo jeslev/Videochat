@@ -53,7 +53,11 @@
     <table border="1px" width="100%">
         <tbody>
         <tr>
-            <td widht="70%" style="padding:7px;">
+            <td> <button class="buttonStyle" id="close-button" onclick="self.close();">Cerrar</button></td>
+
+        </tr>
+        <tr>
+            <td widht="90%" style="padding:7px;">
                 <div id="remoteUser" style="display: none; ">
                     <!--<p><strong>Llamando a:</strong></p>-->
                     <video id="remote-video" autoplay></video>
@@ -63,30 +67,32 @@
                     </table>
                 </div>
             </td>
-            <td width="30%" >
-                <div id="localUser" >
-                    <!--<p><strong>Yo:</strong></p>-->
-                    <audio controls id="local-video" autoplay muted></audio>
-                    <br>
-                    <div align="center">
-                        <label id="user-name" size="40">%USER_NAME%</label>
-                    </div>
-                    <div align="center">
-                        <input type="hidden" id="caller-id" value="%USER_NAME%">
-                    </div>
+
+        </tr>
+        <td width="90%" >
+            <div id="localUser" >
+                <!--<p><strong>Yo:</strong></p>-->
+                <audio controls id="local-video" autoplay muted></audio>
+                <br>
+                <div align="center">
+                    <label id="user-name" size="40">%USER_NAME%</label>
                 </div>
-                <div id="callButtons" align="center">
-                    <!--<p><strong>Yo:</strong></p>-->
-                    <button id="dial" style="display: none;">Llamar</button>
-                    <button id="undial" style="display: none;">Colgar</button>
+                <div align="center">
+                    <input type="hidden" id="caller-id" value="%USER_NAME%">
                 </div>
-            </td>
+            </div>
+            <div id="callButtons" align="center">
+                <!--<p><strong>Yo:</strong></p>-->
+                <button id="dial" style="display: none;">Llamar</button>
+                <button class="buttonStyle" id="undial" style="display: none;">Colgar</button>
+            </div>
+        </td>
+        <tr>
+
         </tr>
         </tbody>
     </table>
 </div>
-
-<button id="close-button" onclick="self.close();">Cerrar</button>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="peer.js"></script>

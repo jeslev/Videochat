@@ -48,11 +48,14 @@
 
     <div id="messages">
     </div>
-
-    <table border="1px" widht="290px">
+    <table border="1px" width="100%">
         <tbody>
         <tr>
-            <td widht="210px" style="padding:7px;">
+            <td> <button class="buttonStyle" id="close-button" onclick="self.close();">Cerrar</button></td>
+
+        </tr>
+        <tr>
+            <td widht="90%" style="padding:7px;">
                 <div id="remoteUser" style="display: none; ">
                     <!--<p><strong>Llamando a:</strong></p>-->
                     <audio id="remote-video" autoplay></audio>
@@ -62,25 +65,31 @@
                     </table>
                 </div>
             </td>
-            <td widht="80px" >
-                <div id="localUser" >
-                    <!--<p><strong>Yo:</strong></p>-->
-                    <audio id="local-video" autoplay muted></audio>
-                    <br>
-                    <label id="user-name" size="30">%USER_NAME%</label>
+
+        </tr>
+        <td width="90%" >
+            <div id="localUser" >
+                <!--<p><strong>Yo:</strong></p>-->
+                <audio id="local-video" autoplay muted></audio>
+                <br>
+                <div align="center">
+                    <label id="user-name" size="40">%USER_NAME%</label>
+                </div>
+                <div align="center">
                     <input type="hidden" id="caller-id" value="%USER_NAME%">
                 </div>
-                <div id="callButtons" >
-                    <!--<p><strong>Yo:</strong></p>-->
-                    <button id="dial" style="display: none;">Llamar</button>
-                    <button id="undial"  style="display: none;">Colgar</button>
-                </div>
-            </td>
+            </div>
+            <div id="callButtons" align="center">
+                <!--<p><strong>Yo:</strong></p>-->
+                <button id="dial" style="display: none;">Llamar</button>
+                <button class="buttonStyle" id="undial" style="display: none;">Colgar</button>
+            </div>
+        </td>
+        <tr>
+
         </tr>
         </tbody>
     </table>
-
-    <button id="close-button" onclick="self.close();">Cerrar</button>
     <!-- c -->
 
 

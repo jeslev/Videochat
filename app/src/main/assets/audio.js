@@ -1,5 +1,5 @@
 // PeerJS server location
-var SERVER_IP = '192.168.1.110';
+var SERVER_IP = '192.168.43.240';
 var SERVER_PORT = 8080;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -292,7 +292,7 @@ function myFunc(){
 
     for (var i = 0; i < arrayLength; i++) {
         if(response[i]!=document.getElementById('caller-id').value){
-            $('#tableContacts').append( "<tr><td onclick=\"select_user('"+response[i]+"')\">"+response[i]+"</td></tr>" );
+            $('#tableContacts').append( "<tr><td onclick=\"select_user('"+response[i]+"')\"> <img src=\"greendot.png\" style=\"width:10px;height:10px;\"> "+response[i]+"</td></tr>" );
         }
     }
 }
