@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('undial').style.display = 'none';
     document.getElementById('remoteUser').style.display = 'none';
     currentCall.close();
-  }
+  };
 
   // make an outgoing call
   var dial = function () {
@@ -188,8 +188,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   };
 
-  // answer an incoming call
-  var answer = function (call) {
+    // answer an incoming call
+    var answer = function (call) {
     if (!peer) {
       logError('No se puede contestar sino esta conectado');
       return;
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         //peer.disconnect();
         peer.destroy();
-    }
+    };
 
   // wire up button events
   closeBtn.addEventListener('click', disconnect);

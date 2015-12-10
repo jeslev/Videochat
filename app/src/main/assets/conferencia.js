@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var finishBtn = document.querySelector('#undial');
   var remoteVideo = document.querySelector('#remote-video');
   var localVideo = document.querySelector('#local-video');
+  var closeBtn = document.querySelector('#close-button');
 
   // the ID set for this client
   var callerId = null;
@@ -63,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
       navigator.webkitGetUserMedia(
         {
           audio: true,
-          video: false
+          video: true
         },
 
         function (stream) {
@@ -130,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
     for(index = 0 ; index<calls.length; index++){
             calls[index].close();
         }
-  }
+  };
 
     // make an outgoing call
     var dial = function () {
@@ -209,7 +210,15 @@ document.addEventListener('DOMContentLoaded', function () {
           });
     };
 
-  // wire up button events
+    var disconnect = function(){
+        if(document.getElementById('undial').style.display==''){
+            document.getElementById('undial').click();
+        }
+        peer.destroy();
+    };
+
+    // wire up button events
+  closeBtn.addEventListener('click', disconnect);
   connectBtn.addEventListener('click', connect);
   dialBtn.addEventListener('click', dial);
   finishBtn.addEventListener('click', undial);
