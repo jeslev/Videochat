@@ -39,7 +39,7 @@
             android:layout_marginRight="30dp">
             <requestFocus/>
         </EditText>
-
+<!--
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp">
         </EditText>
-
+-->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,11 +77,11 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_login"/>
 
-            <Button
+<!--            <Button
                 android:id="@+id/signupButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_signup"/>
+                android:background="@drawable/button_signup"/>      -->
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

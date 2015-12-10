@@ -1,9 +1,9 @@
+// PeerJS server location
+var SERVER_IP = '192.168.1.110';
+var SERVER_PORT = 8080;
+
 
 document.addEventListener('DOMContentLoaded', function () {
-
-  // PeerJS server location
-  var SERVER_IP = '52.33.240.178';
-  var SERVER_PORT = 8080;
 
   // DOM elements manipulated as user interacts with the app
   var messageBox = document.querySelector('#messages');
@@ -220,11 +220,6 @@ function connect(){
 }
 
 function myFunc(){
-  // PeerJS server location
-  var SERVER_IP = '52.33.240.178';
-  var SERVER_PORT = 8080;
-
-
     var label1 = document.getElementById('prueba');
     var response = '';
     $.ajax({ type: "GET",
@@ -251,12 +246,9 @@ function myFunc(){
 
 
     for (var i = 0; i < arrayLength; i++) {
-        var row = tableContacts.insertRow();
-        var cell1 = row.insertCell();
-        cell1.innerHTML = response[i];
+        if(response[i]!=document.getElementById('caller-id').value){
+            $('#tableContacts').append( "<tr><td>"+response[i]+"</td></tr>" );
+        }
     }
-
-
-
 }
 setInterval(myFunc, 5000);

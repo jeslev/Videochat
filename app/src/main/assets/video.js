@@ -1,7 +1,9 @@
+// PeerJS server location
+var SERVER_IP = '192.168.1.110';
+var SERVER_PORT = 8080;
+
+
 document.addEventListener('DOMContentLoaded', function () {
-  // PeerJS server location
-  var SERVER_IP = '52.33.240.178';
-  var SERVER_PORT = 8080;
 
   // DOM elements manipulated as user interacts with the app
   var messageBox = document.querySelector('#messages');
@@ -12,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var finishBtn = document.querySelector('#undial');
   var remoteVideo = document.querySelector('#remote-video');
   var localVideo = document.querySelector('#local-video');
+  var closeBtn = document.querySelector('#close-button');
 
   // the ID set for this client
   var callerId = null;
@@ -238,7 +241,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   };
 
+
+    var disconnect = function(){
+        if(document.getElementById('undial').style.display==''){
+            document.getElementById('undial').click();
+        }
+        //peer.disconnect();
+        peer.destroy();
+    }
+
   // wire up button events
+  closeBtn.addEventListener('click', disconnect);
   connectBtn.addEventListener('click', connect);
   dialBtn.addEventListener('click', dial);
   finishBtn.addEventListener('click', undial);
@@ -248,11 +261,12 @@ function connect(){
     document.getElementById('connect').click();
 }
 
-function myFunc(){
+function select_user(user){
+    document.getElementById('recipient-id').value = user;
+    document.getElementById('dial').click();
+}
 
-  // PeerJS server location
-  var SERVER_IP = '52.33.240.178';
-  var SERVER_PORT = 8080;
+function myFunc(){
 
     var label1 = document.getElementById('prueba');
     var response = '';
@@ -283,17 +297,10 @@ function myFunc(){
 
     for (var i = 0; i < arrayLength; i++) {
         if(response[i]!=document.getElementById('caller-id').value){
-            var row = tableContacts.insertRow();
-            var cell1 = row.insertCell();
-            cell1.innerHTML = response[i];
-            cell1.onclick = function() {
-                document.getElementById('recipient-id').value = cell1.innerText;
-                document.getElementById('dial').click();
-            };
+            $('#tableContacts').append( "<tr><td onclick=\"select_user('"+response[i]+"')\">"+response[i]+"</td></tr>" );
         }
     }
-
-
-
 }
 setInterval(myFunc, 5000);
+
+

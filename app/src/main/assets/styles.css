@@ -15,14 +15,12 @@
 	margin:0px;padding:0px;
 }
 .tableContactsCss tr:hover td{
-	background-color:#aaffff;
-
-
+	background-color:#c4c1c6;
 }
 .tableContactsCss td{
 	vertical-align:middle;
 
-	background-color:#e0f8f7;
+	background-color:#eed2fe;
 
 	border:1px solid #ffffff;
 	border-width:0px 1px 1px 0px;
@@ -36,14 +34,16 @@
 .tableContactsCss th{
 	vertical-align:middle;
 
-	background-color:#58faac;
+	background-color:#63029d;
 
 	border:1px solid #ffffff;
 	border-width:0px 1px 1px 0px;
 	text-align:left;
 	padding:12px;
+	color: #ffffff;
 	font-size:10px;
 	font-family:Arial;
-	font-weight:normal;
-	color:#000000;
+	font-weight:900;
+
+
 }

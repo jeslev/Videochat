@@ -1,7 +1,8 @@
+// PeerJS server location
+var SERVER_IP = '192.168.1.110';
+var SERVER_PORT = 8080;
+
 document.addEventListener('DOMContentLoaded', function () {
-  // PeerJS server location
-  var SERVER_IP = '52.33.240.178';
-  var SERVER_PORT = 8080;
 
   // DOM elements manipulated as user interacts with the app
   var messageBox = document.querySelector('#messages');
@@ -248,12 +249,13 @@ function connect(){
     document.getElementById('connect').click();
 }
 
+
+function select_user(user){
+    document.getElementById('recipient-id').value = user;
+    document.getElementById('dial').click();
+}
+
 function myFunc(){
-
-  // PeerJS server location
-  var SERVER_IP = '52.33.240.178';
-  var SERVER_PORT = 8080;
-
     var label1 = document.getElementById('prueba');
     var response = '';
     $.ajax({ type: "GET",
@@ -281,17 +283,8 @@ function myFunc(){
 
     for (var i = 0; i < arrayLength; i++) {
         if(response[i]!=document.getElementById('caller-id').value){
-            var row = tableContacts.insertRow();
-            var cell1 = row.insertCell();
-            cell1.innerHTML = response[i];
-            cell1.onclick = function() {
-                document.getElementById('recipient-id').value = cell1.innerText;
-                document.getElementById('dial').click();
-            };
+            $('#tableContacts').append( "<tr><td onclick=\"select_user('"+response[i]+"')\">"+response[i]+"</td></tr>" );
         }
     }
-
-
-
 }
 setInterval(myFunc, 5000);
